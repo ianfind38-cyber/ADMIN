@@ -35,7 +35,7 @@ L.forEach((p,i)=>{const tr=tb.insertRow(),r=rank[p.fila];tr.style.animationDelay
 let c=tr.insertCell();const ck=el("input");ck.type="checkbox";ck.checked=sel.has(p.fila);ck.onchange=()=>{ck.checked?sel.add(p.fila):sel.delete(p.fila);tr.classList.toggle("sel",ck.checked);acts()};c.append(ck);
 c=tr.insertCell();c.className="pos";c.textContent=r===1?"🥇":r===2?"🥈":r===3?"🥉":(r||"–");
 c=tr.insertCell();const j=el("div","jug"),a=el("span","av",p.nombre.charAt(0).toUpperCase());a.style.background=color(p.nombre);j.append(a,el("span","",p.nombre));c.append(j);
-tr.insertCell().textContent=p.fecha||"—";
+tr.insertCell().textContent=p.fecha||"—";tr.insertCell().textContent=p.hora||"—";
 c=tr.insertCell();c.className="t";const bar=el("div","bar"),f=el("i");f.style.width=(r?Math.max(6,best/p.tiempo*100):0)+"%";bar.append(f);c.append(el("div","",fmt(p.tiempo)),bar);
 c=tr.insertCell();const b=el("button","rojo chico","Borrar");b.onclick=()=>borrarUno(p,tr,b);c.append(b)});
 $("vacio").hidden=L.length>0;$("btnTodos").hidden=!datos.length;$("todos").checked=false;acts()}
@@ -49,7 +49,7 @@ sel.clear();if(ok)toast(ok+" puntajes borrados");cargar()})};
 $("btnTodos").onclick=()=>confirmar("¿Borrar TODOS los puntajes? No se puede deshacer.").then(si=>{if(!si)return;pedir({accion:"borrar",clave}).then(d=>{if(d.status!=="success")throw new Error(d.message||"no se pudo borrar");sel.clear();toast("Se borraron "+d.borrados+" puntajes");return cargar()}).catch(e=>toast(e.message,1))});
 $("todos").onchange=e=>{[...$("filas").rows].forEach(r=>{const c=r.cells[0].firstChild;c.checked=e.target.checked;c.onchange()})};
 $("btnCsv").onclick=()=>{const q=s=>'"'+(/^[=+\-@]/.test(s)?"'":"")+String(s).replace(/"/g,'""')+'"';
-const csv="\ufeffnombre,fecha,tiempo_segundos\n"+datos.map(p=>[q(p.nombre),q(p.fecha||""),p.tiempo].join(",")).join("\n");
+const csv="\ufeffnombre,fecha,hora,tiempo_segundos\n"+datos.map(p=>[q(p.nombre),q(p.fecha||""),q(p.hora||""),p.tiempo].join(",")).join("\n");
 const a=el("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="puntajes.csv";a.click();toast("CSV descargado")};
 function entrar(){const c=$("clave").value;if(!c){$("errLogin").textContent="Escribí la clave.";return}clave=c;$("errLogin").textContent="Verificando…";
 cargar().then(()=>{$("login").hidden=true;$("panel").hidden=false;$("errLogin").textContent=""}).catch(e=>{clave="";$("errLogin").textContent="Error: "+e.message;const t=$("login");t.classList.remove("tiembla");void t.offsetWidth;t.classList.add("tiembla")})}
