@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administrar puntajes</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head><body><main>
+<section id="login" class="card">
+ <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+ <h1>Administrar puntajes</h1><p>Ingresá la clave para continuar.</p>
+ <div class="pw"><input type="password" id="clave" placeholder="Clave de administrador" autocomplete="off"><button id="ojo" class="ghost" title="Mostrar/ocultar">👁</button></div>
+ <button id="btnEntrar" class="full">Entrar</button><div id="errLogin"></div>
+</section>
+<section id="panel" hidden>
+ <div class="top"><h1>Panel de puntajes</h1>
+  <div class="acc"><span id="upd"></span>
+   <label class="sw"><input type="checkbox" id="auto"><i></i>Auto</label>
+   <button id="btnAct" class="ghost chico">↻ Actualizar</button><button id="btnSalir" class="ghost chico">Cerrar sesión</button></div></div>
+ <div class="stats">
+  <div class="stat"><small>Puntajes</small><b id="sTotal">0</b></div>
+  <div class="stat"><small>Mejor tiempo</small><b id="sMejor">–</b><em id="sMejorN"></em></div>
+  <div class="stat"><small>Promedio</small><b id="sProm">–</b></div>
+  <div class="stat"><small>Mediana</small><b id="sMed">–</b></div>
+  <div class="stat"><small>Peor tiempo</small><b id="sPeor">–</b></div>
+  <div class="stat"><small>Jugadores</small><b id="sJug">0</b></div></div>
+ <div class="podio" id="podio"></div>
+ <div class="graf"><div class="card"><h2>Distribución de tiempos</h2><div class="barras" id="hist"></div></div>
+  <div class="card"><h2>Puntajes por día</h2><div class="barras" id="dias"></div></div></div>
+ <div class="card"><div class="tools"><input id="buscar" placeholder="Buscar jugador…  ( / )">
+  <select id="orden"><option value="t">Mejor tiempo</option><option value="tp">Peor tiempo</option><option value="r">Más recientes</option><option value="a">Más antiguos</option><option value="n">Nombre A-Z</option></select>
+  <select id="dia"></select><button id="btnCsv" class="ghost">⬇ CSV</button>
+  <button id="btnSel" class="rojo" hidden></button></div>
+  <div class="sc"><table><thead><tr><th><input type="checkbox" id="todos"></th><th>#</th><th>Jugador</th><th>Fecha</th><th>Tiempo</th><th></th></tr></thead><tbody id="filas"></tbody></table></div>
+  <div id="vacio" hidden>No hay puntajes para mostrar.</div>
+  <button id="btnTodos" class="rojo full">Borrar todo</button></div>
+</section></main>
+<div id="toast"></div>
+<div id="modal"><div class="card"><h1>Confirmar</h1><p id="mtxt"></p><div class="bt"><button id="mno" class="ghost">Cancelar</button><button id="msi" class="rojo">Borrar</button></div></div></div>
+<script src="admin.js"></script></body></html>
